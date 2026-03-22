@@ -29,6 +29,7 @@ public class GestorTasques {
         novaTasca.setDataInici(dataInici);
         novaTasca.setDataFiPrevista(dataFiPrevista);
         novaTasca.setPrioritat(prioritat);
+        llista.add(novaTasca);
         boolean notificat = notificador.notificar("Nova tasca creada: " + descripcio);
         if (!notificat)
             throw new Exception("No s'ha pogut notificar la creació de la tasca");
