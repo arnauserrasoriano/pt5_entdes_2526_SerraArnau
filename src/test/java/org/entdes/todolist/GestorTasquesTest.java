@@ -63,7 +63,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void afegirTascaInsereixILaRecuperaCorrectament() throws Exception {
+    void afegirTascaInsereixLaRecuperaCorrectamentTest() throws Exception {
         int id = gestor.afegirTasca("Fer snowboard", LocalDate.now().plusDays(1), null, 3);
 
         assertEquals(1, gestor.getNombreTasques());
@@ -73,7 +73,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void afegirTascaPermetDataIniciNulla() throws Exception {
+    void afegirTascaPermetDataIniciNullTest() throws Exception {
         int id = gestor.afegirTasca("Sense data inici", null, LocalDate.now().plusDays(2), 1);
 
         assertEquals(1, gestor.getNombreTasques());
@@ -81,14 +81,14 @@ class GestorTasquesTest {
     }
 
     @Test
-    void afegirTascaLlançaExcepcioQuanDescripcioBuida() {
+    void afegirTascaLlançaExcepcioQuanDescripcioBuidaTest() {
         Exception ex = assertThrows(Exception.class, () ->
                 gestor.afegirTasca("  ", LocalDate.now().plusDays(1), null, 1));
         assertEquals("La descripció no pot estar buida.", ex.getMessage());
     }
 
     @Test
-    void afegirTascaLlançaExcepcioQuanDatesInvalides() {
+    void afegirTascaLlançaExcepcioQuanDatesInvalidesTest() {
         LocalDate inici = LocalDate.now().plusDays(2);
         LocalDate fiPrevista = LocalDate.now().plusDays(1);
         Exception ex = assertThrows(Exception.class, () ->
@@ -97,7 +97,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void afegirTascaLlançaExcepcioQuanDataIniciAnteriorActual() {
+    void afegirTascaLlançaExcepcioQuanDataIniciAnteriorActualTest() {
         LocalDate inici = LocalDate.now().minusDays(1);
         Exception ex = assertThrows(Exception.class, () ->
                 gestor.afegirTasca("A", inici, null, 1));
@@ -123,7 +123,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void marcarCompletadaLlançaExcepcioQuanIdNoExisteix() {
+    void marcarCompletadaLlançaExcepcioQuanIdNoExisteixTest() {
         Exception ex = assertThrows(Exception.class, () -> gestor.marcarCompletada(999));
         assertEquals("La tasca no existeix", ex.getMessage());
     }
@@ -157,14 +157,14 @@ class GestorTasquesTest {
     }
 
     @Test
-    void obtenirTascaLlançaExcepcioQuanNoExisteixIPerMetodeItera() throws Exception {
+    void obtenirTascaLlançaExcepcioQuanNoExisteixIPerMetodeIteraTest() throws Exception {
         gestor.afegirTasca("Exist", LocalDate.now().plusDays(1), null, 1);
         Exception ex = assertThrows(Exception.class, () -> gestor.obtenirTasca(999));
         assertEquals("La tasca no existeix", ex.getMessage());
     }
 
     @Test
-    void modificarTascaActualitzaElsCamps() throws Exception {
+    void modificarTascaActualitzaElsCampsTest() throws Exception {
         int id = gestor.afegirTasca("Inicial", LocalDate.now().plusDays(1), null, 2);
 
         gestor.modificarTasca(id, "Nova", true, null, null, 4);
@@ -176,7 +176,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void modificarTascaAmbCompletadaNullIPrioritatNullDeixaValorsCorrectes() throws Exception {
+    void modificarTascaAmbCompletadaNullIPrioritatNullDeixaValorsCorrectesTest() throws Exception {
         int id = gestor.afegirTasca("Inicial", LocalDate.now().plusDays(1), null, 2);
 
         gestor.modificarTasca(id, "Inicial", null, null, null, null);
@@ -187,7 +187,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void modificarTascaNetejaDataFiRealQuanEsDesmarca() throws Exception {
+    void modificarTascaNetejaDataFiRealQuanEsDesmarcaTest() throws Exception {
         int id = gestor.afegirTasca("Inicial", LocalDate.now().plusDays(1), null, 2);
         Tasca t = gestor.obtenirTasca(id);
         t.setCompletada(true);
@@ -201,7 +201,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void modificarTascaFuncionaQuanHiHaMesDunaTasca() throws Exception {
+    void modificarTascaFuncionaQuanHiHaMesunaTascaTest() throws Exception {
         gestor.afegirTasca("Tasca 1", LocalDate.now().plusDays(1), null, 1);
         int id2 = gestor.afegirTasca("Tasca 2", LocalDate.now().plusDays(2), null, 2);
 
@@ -229,7 +229,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void modificarTascaLlançaExcepcioQuanPrioritatForaRang() throws Exception {
+    void modificarTascaLlançaExcepcioQuanPrioritatForaRangTest() throws Exception {
         int id = gestor.afegirTasca("Inicial", LocalDate.now().plusDays(1), null, 2);
         Exception ex = assertThrows(Exception.class, () ->
                 gestor.modificarTasca(id, "Inicial", false, null, null, 7));
@@ -244,7 +244,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void modificarTascaLlançaExcepcioQuanDescripcioJaExisteix() throws Exception {
+    void modificarTascaLlançaExcepcioQuanDescripcioJaExisteixTest() throws Exception {
         gestor.afegirTasca("Fer snowboard", LocalDate.now().plusDays(1), null, 3);
         int id2 = gestor.afegirTasca("Fer surf", LocalDate.now().plusDays(2), null, 2);
 
@@ -254,7 +254,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void llistarTasquesRetornaTotesLesTasques() throws Exception {
+    void llistarTasquesRetornaTotesLesTasquesTest() throws Exception {
         gestor.afegirTasca("A", LocalDate.now().plusDays(1), null, 1);
         gestor.afegirTasca("B", LocalDate.now().plusDays(1), null, 2);
 
@@ -279,7 +279,7 @@ class GestorTasquesTest {
     }
 
     @Test
-    void llistarTasquesPerComplecioQuanFiltreFalseRetornaBuit() throws Exception {
+    void llistarTasquesPerComplecioQuanFiltreFalseRetornaBuitTest() throws Exception {
         int id = gestor.afegirTasca("A", LocalDate.now().plusDays(1), null, 1);
         gestor.marcarCompletada(id);
 
